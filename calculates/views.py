@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.models import User
+
 import datetime
 
 from .models import Part, Panel, Project, Band
 from .forms import PartEntryForm
-# Create your views here.
+
 
 def entry(request):
     # TODO: we should separate each part with its project
@@ -18,6 +20,8 @@ def entry(request):
             #new_part = part_form.save(commit=False)
             new_part = part_form.save()
             # cd = part_form.cleaned_data
+            #part_form = PartEntryForm()
+            return HttpResponseRedirect('')
     else:
         part_form = PartEntryForm()
             #new_part.project = project

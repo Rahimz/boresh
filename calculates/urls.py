@@ -8,4 +8,5 @@ app_name = 'calculates'
 urlpatterns = [
     path('', views.entry, name='entry'),
     
+
 ]
