@@ -9,16 +9,8 @@
 
     <p>Hi {{ project.author }} </p>
 
-<!-- listing all Parts -->
 
-{% for part in parts %}
-    <div class="">
-        <p>
-            Part {{ forloop.counter }} of {{ project.name }}
-            width: {{ part.width }}-{{ part.width_band }} - length:{{ part.length }}-{{ part.length_band }} - quantity: {{ part.quantity }}
-        </p>
-    </div>
-{% endfor %}
+
 <!-- Adding new part -->
     {% if new_part %}
       <h2>Your part has been added.</h2>
@@ -28,10 +20,66 @@
             {% if part_form.help_text %}
                 <p class="">{{ part_form.help_text|safe }}</p>
             {% endif %}
-<!-- TODO: We should shape the entry in horizental line -->
-          {{ part_form.as_p }}
-          {% csrf_token %}
-          <p><input type="submit" value="Add Part"></p>
+    <!-- TODO: We should shape the entry in horizental line -->
+            <div style="overflow-x:auto;">
+            <table border-bottom: 1px solid #ddd>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Length</th>
+                        <th>Length Band</th>
+                        <th>Width</th>
+                        <th>Width Band</th>
+                        <th>Quantity</th>
+                        <th>Band</th>
+                        <th>Rotation</th>
+                        <th>Panel</th>
+                        <th>Project</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>New Part</td>
+                        {% for part_item in part_form %}
+                            <td>
+                                <p>{{ part_item }}</p>
+                            </td>
+                        {% endfor %}
+                        <td><input type="submit" value="Add Part"></td>
+                    </tr>
+
+
+
+
+
+            {% csrf_token %}
+
         </form>
     {% endif %}
+
+<!-- listing all Parts -->
+
+                <tbody>
+                    <tr>
+                        {{ project.name }}
+                    </tr>
+                    {% for part in parts %}
+                    <tr align=center>
+                        <td>Part {{ forloop.revcounter }}</td>
+                        <td>{{ part.width }}</td>
+                        <td>{{ part.width_band }}</td>
+                        <td>{{ part.length }}</td>
+                        <td>{{ part.length_band }}</td>
+                        <td>{{ part.quantity }}</td>
+                        <td>{{ part.band}}</td>
+                        <td>{{ part.rotation }}</td>
+                        <td>{{ part.panel }}</td>
+                        <td>{{ part.project }}</td>
+                    {% endfor %}
+
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
 {% endblock %}
