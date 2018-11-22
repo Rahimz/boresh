@@ -30,7 +30,7 @@ class Project(models.Model):
 
 
     def __str__(self):
-        return self.name + " (" + self.author + ")"
+        return self.name + " (" + self.author.username + ")"
 
 class Part(models.Model):
     ROTATION_CHOICES = (
@@ -43,7 +43,7 @@ class Part(models.Model):
     width_band = models.IntegerField(default=0, help_text='تعداد نوار در عرض')
     quantity = models.IntegerField(default=1)
     band = models.ForeignKey(Band, on_delete=models.CASCADE)
-    rotation = models.CharField(max_length=10, choices=ROTATION_CHOICES, default='allowed' )
+    rotation = models.CharField(max_length=20, choices=ROTATION_CHOICES, default='allowed' )
     panel = models.ForeignKey(Panel, on_delete=models.CASCADE)
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
