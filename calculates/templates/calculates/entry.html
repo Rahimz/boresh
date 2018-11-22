@@ -1,12 +1,37 @@
 {% extends "calculates/base.html" %}
 
 
-{% block title %}My project{% endblock %}
+{% block title %}{{ project.name }}{% endblock %}
 
 
 {% block content %}
+<h1>Project: {{ project.name }}</h1>
 
-    <h1>My Blog</h1>
-    <p>Hi {{ test }} </p>
+    <p>Hi {{ project.author }} </p>
 
+<!-- listing all Parts -->
+
+{% for part in parts %}
+    <div class="">
+        <p>
+            Part {{ forloop.counter }} of {{ project.name }}
+            width: {{ part.width }}-{{ part.width_band }} - length:{{ part.length }}-{{ part.length_band }} - quantity: {{ part.quantity }}
+        </p>
+    </div>
+{% endfor %}
+<!-- Adding new part -->
+    {% if new_part %}
+      <h2>Your part has been added.</h2>
+    {% else %}
+        <h2>Add a new part</h2>
+        <form action="." method="post">
+            {% if part_form.help_text %}
+                <p class="">{{ part_form.help_text|safe }}</p>
+            {% endif %}
+<!-- TODO: We should shape the entry in horizental line -->
+          {{ part_form.as_p }}
+          {% csrf_token %}
+          <p><input type="submit" value="Add Part"></p>
+        </form>
+    {% endif %}
 {% endblock %}
